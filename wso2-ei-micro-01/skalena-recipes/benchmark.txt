@@ -13,30 +13,30 @@ Document Path:          /simple_api
 Document Length:        90 bytes
 
 Concurrency Level:      100
-Time taken for tests:   10.802 seconds
+Time taken for tests:   5.141 seconds
 Complete requests:      1000
 Failed requests:        0
 Total transferred:      314000 bytes
 HTML transferred:       90000 bytes
-Requests per second:    92.58 [#/sec] (mean)
-Time per request:       1080.181 [ms] (mean)
-Time per request:       10.802 [ms] (mean, across all concurrent requests)
-Transfer rate:          28.39 [Kbytes/sec] received
+Requests per second:    194.52 [#/sec] (mean)
+Time per request:       514.079 [ms] (mean)
+Time per request:       5.141 [ms] (mean, across all concurrent requests)
+Transfer rate:          59.65 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    1   1.4      0       6
-Processing:     7 1045 338.2   1175    1498
-Waiting:        7 1044 338.2   1173    1498
-Total:          7 1045 337.8   1175    1498
+Connect:        0    1   1.1      0       6
+Processing:     6  499 238.7    532    1726
+Waiting:        6  499 238.7    532    1726
+Total:          6  499 238.7    532    1727
 
 Percentage of the requests served within a certain time (ms)
-  50%   1175
-  66%   1254
-  75%   1269
-  80%   1280
-  90%   1338
-  95%   1443
-  98%   1480
-  99%   1492
- 100%   1498 (longest request)
+  50%    532
+  66%    574
+  75%    586
+  80%    599
+  90%    641
+  95%    695
+  98%   1590
+  99%   1652
+ 100%   1727 (longest request)
