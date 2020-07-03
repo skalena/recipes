@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<api context="/simple_api" name="simple_api" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET">
+        <inSequence>
+            <log level="custom">
+                <property name="status" value="API invocation received ...."/>
+            </log>
+            <property name="date" expression='get-property("SYSTEM_DATE", "yyyy-MM-dd&apos;T&apos;HH:mm:ss")' scope="default"/> 
+            <payloadFactory media-type="xml">
+                <format>
+                    <message xmlns="">
+                        <msg> That is the message back from WSO2 Micro EI at $1 </msg>
+                    </message>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('date')"/>
+                </args>
+
+            </payloadFactory>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>

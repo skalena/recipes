@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artifacts>
+    <artifact name="simple_api" type="synapse/api" serverRole="EnterpriseServiceBus" groupId="com.skalena.methodology" version="1.0-SNAPSHOT">
+        <file>api/simple_api.xml</file>
+    </artifact>
+    <artifact name="facade" type="synapse/api" serverRole="EnterpriseServiceBus" groupId="com.skalena.methodology" version="1.0-SNAPSHOT">
+        <file>api/facade.xml</file>
+    </artifact>
+    <artifact name="provider-acme.xml" type="synapse/sequence" serverRole="EnterpriseServiceBus" groupId="com.skalena.methodology" version="1.0-SNAPSHOT">
+        <file>sequences/provider-acme.xml</file>
+    </artifact>
+    <artifact name="provider-tabajara.xml" type="synapse/sequence" serverRole="EnterpriseServiceBus" groupId="com.skalena.methodology" version="1.0-SNAPSHOT">
+        <file>sequences/provider-tabajara.xml</file>
+    </artifact>    
+    <artifact name="sequence-fault-facade.xml" type="synapse/sequence" serverRole="EnterpriseServiceBus" groupId="com.skalena.methodology" version="1.0-SNAPSHOT">
+        <file>sequences/sequence-fault-facade.xml</file>
+    </artifact>     
+</artifacts>

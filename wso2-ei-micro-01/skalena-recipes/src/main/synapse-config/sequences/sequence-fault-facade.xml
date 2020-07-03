@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="sequence-fault-facade" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+          <log level="full">
+              <property name="text" value="An unexpected error occured"/>
+              <property name="message" expression="get-property('ERROR_MESSAGE')"/>      
+           </log> 
+           <payloadFactory media-type="xml">
+                        <format>
+                            <error xmlns="">
+                                <msg>$1</msg>
+                            </error>
+                        </format>
+                        <args>
+                             <arg evaluator="xml" expression="get-property('ERROR_MESSAGE')"/>
+                        </args>
+           </payloadFactory>
+           <property name="HTTP_SC_DESC" value="Common error is the provider not specified" scope="axis2"/>
+           <header name="api-error-client" value="Provider not found, please refer to an existing one and see the logs" scope="transport"/>
+           <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+           <respond/>
+  </sequence> 

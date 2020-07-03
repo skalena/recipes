@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<api context="/api-facade" name="facade" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET" uri-template="/provider/{provider}">
+    <inSequence>
+        <log level="custom">          
+             <property name="provider" expression="fn:concat('provider-',get-property('uri.var.provider'))"/>
+        </log>
+
+        <property name="provider" expression="fn:concat('provider-',get-property('uri.var.provider'))" type="STRING"/>
+
+       <sequence key="{get-property('provider')}"/> 
+
+       <property name="NO_KEEPALIVE" value="true" scope="axis2"/>
+
+       <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+        
+       <respond/>
+
+        </inSequence>
+        <outSequence>
+            <!-- Define outflow mediation logic here -->
+        </outSequence>
+        <faultSequence>
+           <log level="custom">
+              <property name="text" value="An unexpected error occured"/>
+              <property name="message" expression="get-property('ERROR_MESSAGE')"/>   
+              <property name="provider" expression="fn:concat('provider-',get-property('uri.var.provider'))" type="STRING"/>
+   
+           </log> 
+           <payloadFactory media-type="xml">
+                        <format>
+                            <error xmlns="">
+                                <msg>$1</msg>
+                                <provider>$2</provider>
+                            </error>
+                        </format>
+                        <args>
+                             <arg evaluator="xml" expression="get-property('ERROR_MESSAGE')"/>
+                              <arg evaluator="xml" expression="get-property('provider')"/>
+                        </args>
+           </payloadFactory>
+           <property name="HTTP_SC_DESC" value="Provider not found! " scope="axis2"/>
+           <header name="api-error-client" value="Provider not found, please refer to an existing one and see the logs" scope="transport"/>
+           <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+           <respond/>
+        </faultSequence>
+    </resource>
+
+   <resource methods="GET" uri-template="/provider">
+    <inSequence>
+        <log level="custom">          
+             <property name="provider" expression="fn:concat('provider-',$trp:X-Skalena-Provider)"/>
+        </log>
+
+        <property name="provider" expression="fn:concat('provider-',$trp:X-Skalena-Provider)" type="STRING"/>
+
+       <sequence key="{get-property('provider')}"/> 
+
+       <property name="NO_KEEPALIVE" value="true" scope="axis2"/>
+
+       <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+        
+       <respond/>
+
+        </inSequence>
+        <outSequence>
+            <!-- Define outflow mediation logic here -->
+        </outSequence>
+        <faultSequence>
+           <log level="custom">
+              <property name="text" value="An unexpected error occured"/>
+              <property name="message" expression="get-property('ERROR_MESSAGE')"/>   
+              <property name="provider" expression="fn:concat('provider-',get-property('uri.var.provider'))" type="STRING"/>
+   
+           </log> 
+           <payloadFactory media-type="xml">
+                        <format>
+                            <error xmlns="">
+                                <msg>$1</msg>
+                                <provider>$2</provider>
+                            </error>
+                        </format>
+                        <args>
+                             <arg evaluator="xml" expression="get-property('ERROR_MESSAGE')"/>
+                              <arg evaluator="xml" expression="get-property('provider')"/>
+                        </args>
+           </payloadFactory>
+           <property name="HTTP_SC_DESC" value="Provider not found! " scope="axis2"/>
+           <property name="HTTP_SC" value="404" scope="axis2"/>
+           <header name="api-error-client" value="Provider not found, please refer to an existing one and see the logs" scope="transport"/>
+           <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+           <respond/>
+        </faultSequence>
+    </resource>
+
+
+</api>

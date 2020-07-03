@@ -1,0 +1,20 @@
+<template name="send-http-code-and-message">
+   <parameter name="http-code"/>
+   <parameter name="message"/>
+   <sequence>
+        <log level="custom">
+        <property name="HTTP_MESSAGE:" expression="$func:message" scope="axis2"/>
+        <property name="HTTP_CODE:" expression="$func:http-code" scope="axis2"/>
+       </log>
+        <property name="HTTP_SC_DESC" expression="$func:message" scope="axis2"/>
+        <property name="HTTP_SC" expression="$func:http-code" scope="axis2"/>
+   </sequence>
+</template>
+
+<!--
+<call-template target="send-http-code-and-message">
+    <with-param name="message" value="record not found" />
+    <with-param name="http-code" value="404" />
+</call-template>
+
+-->

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="provider-acme" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+            <log level="custom">
+                <property name="status" value="Provider:ACME"/>
+            </log>
+            <payloadFactory media-type="xml">
+                        <format>
+                            <resultado xmlns="">
+                                <msg>ACME</msg>
+                            </resultado>
+                        </format>
+                        <args/>
+           </payloadFactory>
+
+</sequence>
