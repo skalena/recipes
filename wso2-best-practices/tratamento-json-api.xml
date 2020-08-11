@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/api/v1" name="APIBP"
+	xmlns="http://ws.apache.org/ns/synapse">
+	<resource methods="POST" uri-template="/validate-json">
+		<inSequence>
+			<log>
+				<property expression="json-eval($.idCliente)"
+					name="idCliente ==== > " />
+			</log>
+			<property expression="json-eval($.idCliente)"
+				name="idCliente" scope="default" type="STRING" />
+
+			<filter source="boolean(get-property('idCliente'))"
+				regex="false">
+				<then>
+					<makefault description="Error" version="soap11">
+						<code value="soap11Env:VersionMismatch"
+							xmlns:soap11Env="http://schemas.xmlsoap.org/soap/envelope/" />
+						<reason value="idCliente nao esta no envelope JSON" />
+						<detail>idCliente nao faz parte do payload JSON enviado</detail>
+					</makefault>
+
+				</then>
+				<else>
+
+					<log level="custom">
+						<property name="LOG_MESSAGE" value="Mensagem OK" />
+					</log>
+					<payloadFactory media-type="xml">
+						<format>
+							<status xmlns="">
+								<msg>Dado do cliente $1</msg>
+							</status>
+						</format>
+						<args>
+							<arg evaluator="xml" expression="get-property('idCliente')" />
+						</args>
+					</payloadFactory>
+					<property name="messageType" value="application/json"
+						scope="axis2" />
+
+				</else>
+			</filter>
+			<respond />
+		</inSequence>
+		<outSequence />
+		<faultSequence />
+	</resource>
+</api>
